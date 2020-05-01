@@ -86,10 +86,10 @@ def delete_category(category_id):
 
 
 @app.route('/insert_category', methods=["POST"])
-def insert_category(category_id):
-    mongo.db.categories.update(
-        {'_id': ObjectId(category_id)},
-        {'category_name': request.form.get('category_name')})
+def insert_category():
+    categories = mongo.db.categories
+    category_doc = {'category_name': request.form.get('category_name')}
+    categories.insert_one(category_doc)
     return redirect(url_for('get_categories'))
 
 
